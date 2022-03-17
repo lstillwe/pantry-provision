@@ -74,7 +74,20 @@ const resolvers = {
             if (context.user) {
                 const updatedUser = await User.findByIdAndUpdate(
                     { _id: context.user._id.items._id },
-                    { $push: { items: itemData } },
+                    { $set: { items: itemData } },
+                    { new: true }
+                );
+      
+              return updatedUser;
+            }
+      
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        updateInventory: async (parent, { quantity }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findByIdAndUpdate(
+                    { _id: context.user._id.items._id },
+                    { $set: { quantity: quantity } },
                     { new: true }
                 );
       
