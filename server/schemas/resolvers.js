@@ -72,12 +72,19 @@ const resolvers = {
         },
         updateItem: async (parent, { itemData }, context) => {
             if (context.user) {
-                const updatedUser = await User.findByIdAndUpdate(
-                    { _id: context.user._id.items._id },
-                    { $set: { items: itemData } },
+                const itemId = itemData.itemId;
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id, itemId: itemId},
+                    { $set: {
+                        "items.$.name": itemData.name,
+                        "items.$.price": itemData.price,
+                        "items.$.quantity": itemData.quantity,
+                        "items.$.threshold": itemData.threshold,
+                        "items.$.storage": itemData.storage,
+                        "items.$.category": itemData.category 
+                    } },
                     { new: true }
                 );
-      
               return updatedUser;
             }
       
@@ -85,9 +92,10 @@ const resolvers = {
         },
         updateInventory: async (parent, { quantity }, context) => {
             if (context.user) {
+                const itemId = itemData.itemId;
                 const updatedUser = await User.findByIdAndUpdate(
-                    { _id: context.user._id.items._id },
-                    { $set: { quantity: quantity } },
+                    { _id: context.user._id, itemId: itemId },
+                    { $set: { "items.$.quantity": quantity } },
                     { new: true }
                 );
       
