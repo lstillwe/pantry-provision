@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+const { gql } = require('apollo-server-express');
 
 // create our typeDefs
 const typeDefs = gql`
@@ -34,11 +34,19 @@ input ItemInput {
 }
 type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(email: String!, password: String!): Auth
     addItem(itemData: ItemInput!): User
-    updateItem(itemData: ItemInput!): User
+    updateItem(
+        itemId: ID!,
+        name: String,
+        price: Float,
+        quantity: Int,
+        threshold: Int,
+        storage: String,
+        category: String,
+    ): User
     deleteItem(itemId: ID!): User
-    updateInventory(itemId: ID!, quantity: Int!): User
+    updateInventory(itemId: ID!, quantity: Int): User
 }
 `;
 

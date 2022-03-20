@@ -58,11 +58,11 @@ const resolvers = {
             if(context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $pull: { items: { itemId } } },
+                { $pull: { items: { _id : itemId } } },
                 { new: true }
                 );
                 if (!updatedUser) {
-                return res.status(404).json({ message: "Couldn't find user with this id!" });
+                    return res.status(404).json({ message: "Couldn't find user with this id!" });
                 }
 
                 return (updatedUser);
@@ -70,18 +70,17 @@ const resolvers = {
             
             throw new AuthenticationError('You need to be logged in!');
         },
-        updateItem: async (parent, { itemData }, context) => {
+        updateItem: async (parent, { itemId, name, price, quantity, threshold, storage, category }, context) => {
             if (context.user) {
-                const itemId = itemData.itemId;
                 const updatedUser = await User.findOneAndUpdate(
-                    { _id: context.user._id, itemId: itemId},
+                    { _id: context.user._id, "items._id": itemId},
                     { $set: {
-                        "items.$.name": itemData.name,
-                        "items.$.price": itemData.price,
-                        "items.$.quantity": itemData.quantity,
-                        "items.$.threshold": itemData.threshold,
-                        "items.$.storage": itemData.storage,
-                        "items.$.category": itemData.category 
+                        "items.$.name": name,
+                        "items.$.price": price,
+                        "items.$.quantity": quantity,
+                        "items.$.threshold": threshold,
+                        "items.$.storage": storage,
+                        "items.$.category": category 
                     } },
                     { new: true }
                 );
@@ -90,11 +89,10 @@ const resolvers = {
       
             throw new AuthenticationError('You need to be logged in!');
         },
-        updateInventory: async (parent, { quantity }, context) => {
+        updateInventory: async (parent, { itemId, quantity }, context) => {
             if (context.user) {
-                const itemId = itemData.itemId;
-                const updatedUser = await User.findByIdAndUpdate(
-                    { _id: context.user._id, itemId: itemId },
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id, "items._id": itemId },
                     { $set: { "items.$.quantity": quantity } },
                     { new: true }
                 );
