@@ -17,6 +17,7 @@ mutation addUser($username: String!, $password: String!, $email: String!) {
     token
     user {
       _id
+      email
     }
   }
 }
@@ -29,7 +30,7 @@ export const ADD_ITEM = gql`
             _id
             email
             items {
-                itemId
+                _id
                 name
                 price
                 quantity
@@ -47,7 +48,7 @@ export const DELETE_ITEM = gql`
             _id
             email
             items {
-                itemId
+                _id
                 name
                 price
                 quantity
@@ -60,12 +61,12 @@ export const DELETE_ITEM = gql`
 `;
 
 export const UPDATE_ITEM = gql`
-    mutation updateItem($itemData: ItemInput!) {
-        updateItem(itemData: $itemData) {
+    mutation updateItem($itemId: ID!, $name: String, $price: Float, $quantity: Int, $threshold: Int, $storage: String, $category: String) {
+        updateItem(itemId:$itemId, name:$name, price:$price, quantity:$quantity, threshold:$threshold, storage:$storage, category:$category) {
             _id
             email
             items {
-                itemId
+                _id
                 name
                 price
                 quantity
@@ -78,12 +79,12 @@ export const UPDATE_ITEM = gql`
 `;
 
 export const UPDATE_INVENTORY = gql`
-    mutation updateInventory($itemId: ID!, $quantity: Int!) {
+    mutation updateInventory($itemId: ID!, $quantity: Int) {
         updateInventory(itemId:$itemId, quantity:$quantity) {
             _id
             email
             items {
-                itemId
+                _id
                 name
                 price
                 quantity
