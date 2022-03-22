@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
+import {getFA_Icon} from '../utils/misc';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import Auth from '../utils/auth';
@@ -59,6 +59,7 @@ export default function Dashboard() {
                 <>
                   {item.threshold > item.quantity &&
                   <h2>
+                    {getFA_Icon(item.category)}
                     {item.name}
                   </h2>
                   }
