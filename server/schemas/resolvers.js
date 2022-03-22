@@ -10,7 +10,8 @@ const resolvers = {
                 const userData = await User.findOne({
                     _id: context.user._id
                 })
-                .select('-__v -password');
+                .select('-__v -password')
+                .populate('items');
 
                 return userData;
             }
