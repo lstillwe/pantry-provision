@@ -10,7 +10,7 @@ import {
     return (
         <Router>
             <div>
-                <IconButton color="primary" aria-label="add to shopping cart" Link="{To add forum}">
+                <IconButton color="primary" aria-label="add to shopping cart" Link="{To add}">
                 <AddShoppingCartIcon />
                 </IconButton>
             </div>
