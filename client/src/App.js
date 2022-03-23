@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // Pages imports here and possibly other components
 import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
 import Dashboard from './pages/Dashboard';
 import Detail from './pages/Detail';
 
@@ -41,6 +42,7 @@ function App() {
                 <>
                     <Switch>
                         <Route exact path="/" component={LoginForm} />
+                        <Route exact path="/signup" component={SignupForm} />
                         <Route exact path="/dashboard" component={Dashboard} />
                         <Route exact path="/detail" component={Detail} />
                         <Route exact path="/inventory" component={Inventory} />

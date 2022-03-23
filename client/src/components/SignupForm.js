@@ -49,6 +49,14 @@ const SignupForm = () => {
 
   return (
     <>
+     <div className="min-h-full">
+        <div className="py-10">
+          <header>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h1 className="text-3xl font-bold leading-tight text-gray-900">Sign Up</h1>
+            </div>
+          </header>
+          <main className='list-wrap'>
       {/* This is needed for the validation functionality above */}
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
@@ -81,12 +89,15 @@ const SignupForm = () => {
           <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
         </Form.Group>
         <Button
-          disabled={!(userFormData.username && userFormData.email && userFormData.password)}
+          disabled={!(userFormData.email && userFormData.password)}
           type='submit'
           variant='success'>
           Submit
         </Button>
       </Form>
+      </main>
+        </div>
+      </div>
     </>
   );
 };
