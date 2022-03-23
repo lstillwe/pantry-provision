@@ -75,37 +75,34 @@ const resolvers = {
     },
     updateItem: async (
       parent,
-      { itemId, name, price, quantity, threshold, storage, category },
+      { itemId, name, price, quantity, threshold, category },
       context
     ) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id, "items._id": itemId },
+        const updatedItem = await Item.findOneAndUpdate(
+          { _id: itemId },
           {
-            $set: {
-              "items.$.name": name,
-              "items.$.price": price,
-              "items.$.quantity": quantity,
-              "items.$.threshold": threshold,
-              "items.$.category": category,
-            },
+            name,
+            price,
+            quantity,
+            threshold,
+            category,
           },
           { new: true }
         );
-        return updatedUser;
+        return updatedItem;
       }
 
       throw new AuthenticationError("You need to be logged in!");
     },
     updateInventory: async (parent, { itemId, quantity }, context) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id, "items._id": itemId },
-          { $set: { "items.$.quantity": quantity } },
-          { new: true }
+        const updatedItem = await Item.findOneAndUpdate(
+          { _id: itemId },
+          { quantity: quantity }
         );
 
-        return updatedUser;
+        return updatedItem;
       }
 
       throw new AuthenticationError("You need to be logged in!");

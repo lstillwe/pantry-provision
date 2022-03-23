@@ -26,7 +26,6 @@ export default function AddItemForm() {
     };
 
     const handleFormSubmit = async (event) => {
-        console.log('here');
         event.preventDefault();
 
         // check if form has everything (as per react-bootstrap docs)
@@ -44,25 +43,29 @@ export default function AddItemForm() {
             category: addItemData.category,
         };
         console.log(formattedData);
+        let error = false;
         try {
             const { dataResponse } = await addItem({
                 variables: { ...addItemData },
             });
-            console.log(dataResponse);
         } catch (e) {
             console.log('in error');
             console.log(JSON.stringify(e, null, 2));
+            error = true;
+        }
+        if (!error) {
+            window.location = '/inventory';
         }
 
         // clear form values
-        // setItemData({
-        //     name: '',
-        //     price: '',
-        //     quantity: '',
-        //     threshold: '',
-        //     category: '',
-        //     email: '',
-        // });
+        setItemData({
+            name: '',
+            price: '',
+            quantity: '',
+            threshold: '',
+            category: '',
+            email: '',
+        });
     };
     return (
         <>
@@ -75,11 +78,12 @@ export default function AddItemForm() {
                             </h1>
                         </div>
                     </header>
-                    <main>
+                    <main className={'form-wrap'}>
                         <Form
                             noValidate
                             validated={validated}
                             onSubmit={handleFormSubmit}
+                            className={'form'}
                         >
                             <Alert
                                 dismissible
