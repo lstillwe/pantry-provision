@@ -35,7 +35,7 @@ const startServer = async () => {
 // Initialize the Apollo server
 startServer();
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
