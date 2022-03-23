@@ -6,6 +6,7 @@ import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import Dashboard from './pages/Dashboard';
 import Detail from './pages/Detail';
+import Inventory from './pages/Inventory';
 
 import {
     ApolloClient,
@@ -15,6 +16,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Inventory from './pages/Inventory';
+import { Pages } from '@material-ui/icons';
 
 const httpLink = createHttpLink({
     uri: '/graphql',
