@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // Pages imports here and possibly other components
 import LoginForm from './components/LoginForm';
 import Dashboard from './pages/Dashboard';
+import AddItemForm from './pages/AddItemForm';
 
 import {
   ApolloClient,
@@ -41,6 +42,7 @@ function App() {
           <Route exact path='/' component={LoginForm} />
           <Route exact path='/dashboard' component={Dashboard} />
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+          <Route exact path='/additem' component={AddItemForm} />
       </Switch>
       </>
     </Router>
