@@ -1,6 +1,7 @@
 // see SignupForm.js for comments
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
@@ -54,7 +55,7 @@ const LoginForm = () => {
               <h1 className="text-3xl font-bold leading-tight text-gray-900">Login</h1>
             </div>
           </header>
-          <main>
+          <main className='list-wrap'>
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
@@ -91,6 +92,9 @@ const LoginForm = () => {
           Submit
         </Button>
       </Form>
+      <Link className="add-item btn" to={'/signup'}>
+          Sign Up
+      </Link>
       </main>
         </div>
       </div>
