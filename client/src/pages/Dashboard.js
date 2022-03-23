@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getFA_Icon } from '../utils/misc';
+import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import Auth from '../utils/auth';
@@ -46,7 +47,7 @@ export default function Dashboard() {
                             </h1>
                         </div>
                     </header>
-                    <main>
+                    <main className='list-wrap'>
                         <div>
                             {}
                             <h2>Your list costs</h2>
@@ -65,6 +66,15 @@ export default function Dashboard() {
                                 </div>
                             );
                         })}
+                        <div className={'add-item-wrap'}>
+                              <Link className="add-item btn" to={'/detail'}>
+                                  Add Item
+                              </Link>
+                              <Link className="add-item btn" to={'/inventory'}>
+                                  View Inventory
+                              </Link>
+                        </div>
+
                     </main>
                 </div>
             </div>

@@ -35,6 +35,9 @@ export default function Inventory() {
                     <Link className="add-item btn" to={'/detail'}>
                         Add Item
                     </Link>
+                    <Link className="add-item btn" to={'/dashboard'}>
+                        View List
+                    </Link>
                 </div>
             </div>
         </>
