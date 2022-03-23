@@ -56,23 +56,19 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     deleteItem: async (parent, { itemId }, context) => {
-      if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { items: { _id: itemId } } },
-          { new: true }
-        );
-        if (!updatedUser) {
-          return res
-            .status(404)
-            .json({ message: "Couldn't find user with this id!" });
+        if (context.user) {
+          const deletedItem = await Item.deleteOne({ _id: itemId });
+          if (!deletedItem) {
+            return res
+              .status(404)
+              .json({ message: "Couldn't find item with this id!" });
+          }
+      
+          return deletedItem;
         }
-
-        return updatedUser;
-      }
-
-      throw new AuthenticationError("You need to be logged in!");
-    },
+      
+        throw new AuthenticationError("You need to be logged in!");
+      },
     updateItem: async (
       parent,
       { itemId, name, price, quantity, threshold, category },
